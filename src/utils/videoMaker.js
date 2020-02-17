@@ -7,14 +7,14 @@ var fs = require('fs')
 // create new HTML file
 const createAnimationFile = (imgURL, slogan) => {
   const fileName = uniqid()
-  console.log(`${__dirname}\\renderedHTML\\${fileName}.html`)
-  if (!fs.existsSync(`${__dirname}\\renderedHTML`)) {
-    fs.mkdirSync(`${__dirname}\\renderedHTML`)
+  console.log(`${__dirname}/renderedHTML/${fileName}.html`)
+  if (!fs.existsSync(`${__dirname}/renderedHTML`)) {
+    fs.mkdirSync(`${__dirname}/renderedHTML`)
   }
   fs.writeFileSync(
-    `${__dirname}\\renderedHTML\\${fileName}.html`, fadeInFromLeft(imgURL, slogan)
+    `${__dirname}/renderedHTML/${fileName}.html`, fadeInFromLeft(imgURL, slogan)
   )
-  return `${__dirname}\\renderedHTML\\${fileName}.html`
+  return `${__dirname}/renderedHTML/${fileName}.html`
 }
 
 const recording = HTMLPath =>
@@ -30,10 +30,10 @@ const recording = HTMLPath =>
       selector: 'body',
       fps: 30,
       duration: 3,
-      output: `${__dirname}\\renders\\${fileName}.mp4`
+      output: `${__dirname}/renders/${fileName}.mp4`
     })
       .then(function () {
-        resolve({ fileName: `${fileName}`, filePath: `${__dirname}\\renders\\${fileName}.mp4` })
+        resolve({ fileName: `${fileName}`, filePath: `${__dirname}/renders/${fileName}.mp4` })
       })
       .catch(e => reject(e))
   })
