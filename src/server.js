@@ -25,7 +25,8 @@ const { jwtAuth } = Utils;
       DB_USER,
       DB_URI_DEV,
       DB_PASS_DEV,
-      DB_USER_DEV
+      DB_USER_DEV,
+      PLAYGROUND
     } = process.env
 
     const app = express()
@@ -69,7 +70,7 @@ const { jwtAuth } = Utils;
     const server = new ApolloServer({
       typeDefs,
       resolvers,
-      playground: NODE_ENV !== 'production',
+      playground: PLAYGROUND,
       context: async ({ req, connection }) => {
         if (connection) {
           return connection.context
