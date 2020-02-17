@@ -42,7 +42,6 @@ export default async (imgURL, slogan) => {
   try {
     let url = await recording(createAnimationFile(imgURL, slogan))
     let fileURL = await upload(url.fileName, url.filePath)
-    console.log(fileURL)
     return fileURL.secure_url
   } catch (e) {
     console.log(e)
