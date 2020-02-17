@@ -21,6 +21,7 @@ const recording = HTMLPath =>
   new Promise((resolve, reject) => {
     let fileName = uniqid()
     timecut({
+      launchArguments: ['--no-sandbox'],
       url: HTMLPath,
       viewport: {
         width: 1920,
