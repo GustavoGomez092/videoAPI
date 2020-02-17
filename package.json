@@ -8,6 +8,9 @@
     "dev": "webpack | nodemon dist/server.bundle.js",
     "build": "webpack"
   },
+  "engines": {
+    "node": "12.13.0"
+  },
   "type": "module",
   "keywords": [],
   "author": "",
