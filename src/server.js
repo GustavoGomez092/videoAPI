@@ -1,4 +1,5 @@
-import '@babel/polyfill'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import { ApolloServer, ApolloError } from 'apollo-server-express'
 import express from 'express'
 import { config } from 'dotenv'
@@ -91,7 +92,7 @@ const { jwtAuth } = Utils;
         }
         throw new ApolloError(`${error}`)
       },
-      debug: NODE_ENV !== 'production'
+      debug: PLAYGROUND
     })
 
     server.applyMiddleware({ app })
