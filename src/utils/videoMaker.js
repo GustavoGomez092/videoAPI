@@ -28,7 +28,7 @@ const recording = HTMLPath =>
         height: 1080
       },
       selector: 'body',
-      fps: 24,
+      fps: 30,
       duration: 3,
       output: `${__dirname}/renders/${fileName}.mp4`
     })

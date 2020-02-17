@@ -1,6 +1,9 @@
-import { ApolloError } from 'apollo-server-express'
+import { ApolloError, withFilter, PubSub } from 'apollo-server-express'
 import utils from '../utils'
 import { Check } from 'check-tfm'
+import uniqid from 'uniqid'
+
+export const pubsub = new PubSub()
 
 const { screenRecorder } = utils
 
@@ -26,11 +29,40 @@ export default {
         // If the user does not meet the minimum requirements return error
         if (!response) { throw new Error('Insufficient permissions for this request') }
 
+        // generate a request ID
+        let requestID = uniqid()
+
         // Start the video capture
-        return screenRecorder(imageURL, slogan)
+        let downloadUrl = new Promise(async (resolve, reject) => {
+          try {
+            let fileURL = await screenRecorder(imageURL, slogan)
+            console.log(fileURL)
+            // fire subscription
+            pubsub.publish('RESPONSE_ADDED', { renderFinished: { url: fileURL, requestID } })
+            resolve(fileURL)
+          } catch (error) {
+            console.log(error)
+            reject(error)
+          }
+        })
+
+        console.log(downloadUrl)
+
+        // finish the mutation
+        return { url: 'Render added to queue, refer to your requestID on subscriptions', requestID }
       } catch (e) {
         throw new ApolloError(e.message)
       }
+    }
+  },
+  Subscription: {
+    renderFinished: {
+      subscribe: withFilter(
+        () => pubsub.asyncIterator(['RESPONSE_ADDED']),
+        async (payload, variables, headers, context) => {
+          return true
+        }
+      )
     }
   }
 }

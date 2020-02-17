@@ -10,7 +10,15 @@ extend type Mutation {
   createVideo (
     imageURL: String!
     slogan: String!
-    ): String
+    ): Result!
   }
+type Subscription {
+    renderFinished: Result!
+}
+
+type Result {
+    url: String,
+    requestID: String!
+}
 
 `
