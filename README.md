@@ -1,6 +1,6 @@
-# MEGA JWT Boilerpalte
+# MEGA JWT Video Maker API
 
-Hi! This is a boilerplate for a GraphQL Server with Apollo, MongoDB, JWT & Bcrypt.
+Hi! This is an early stage API that makes Logo intros for clients using just their logo and their slogan. based on MEGAJWT repo.
 
 
 
