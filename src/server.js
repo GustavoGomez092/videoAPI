@@ -59,9 +59,6 @@ const { jwtAuth } = Utils;
     await mongoose.connect(
       `mongodb+srv://${USER}:${PASSWORD}@${URI}`,
       {
-        reconnectTries: 100,
-        reconnectInterval: 500,
-        autoReconnect: true,
         useNewUrlParser: true,
         dbName: 'DebtManagerDB',
         useUnifiedTopology: true

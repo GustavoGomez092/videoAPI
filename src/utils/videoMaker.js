@@ -1,8 +1,26 @@
 import uniqid from 'uniqid'
 import timecut from 'timecut'
-import fadeInFromLeft from './animations/fadeInFromLeft'
 import upload from './cloudinaryUpload'
+// Import Animations
+import fadeInFromLeft from './animations/fadeInFromLeft'
+import flipXCenter from './animations/FlipXCenter'
+import inertialBounceCenter from './animations/inertialBounceCenter'
+import popUpShapes from './animations/popUpShapes'
+// end import animations
 var fs = require('fs')
+
+// create array of available animations
+let animations = [
+  fadeInFromLeft,
+  flipXCenter,
+  inertialBounceCenter,
+  popUpShapes
+]
+
+// randomize animations
+let randomAnimation = (imgURL, slogan) => {
+  return animations[Math.floor(Math.random() * animations.length)](imgURL, slogan)
+}
 
 // create new HTML file
 const createAnimationFile = (imgURL, slogan) => {
@@ -12,7 +30,7 @@ const createAnimationFile = (imgURL, slogan) => {
     fs.mkdirSync(`${__dirname}/renderedHTML`)
   }
   fs.writeFileSync(
-    `${__dirname}/renderedHTML/${fileName}.html`, fadeInFromLeft(imgURL, slogan)
+    `${__dirname}/renderedHTML/${fileName}.html`, randomAnimation(imgURL, slogan)
   )
   return `${__dirname}/renderedHTML/${fileName}.html`
 }
@@ -29,7 +47,7 @@ const recording = HTMLPath =>
       },
       selector: 'body',
       fps: 60,
-      duration: 3,
+      duration: 4,
       output: `${__dirname}/renders/${fileName}.mp4`
     })
       .then(function () {
