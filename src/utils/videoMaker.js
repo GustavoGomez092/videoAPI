@@ -17,20 +17,32 @@ let animations = [
   popUpShapes
 ]
 
-// randomize animations
-let randomAnimation = (imgURL, slogan) => {
-  return animations[Math.floor(Math.random() * animations.length)](imgURL, slogan)
+// switch depending on animation
+let selectAnimation = (imgURL, slogan, animation) => {
+  switch (animation) {
+    case 'FADE_IN_FROM_LEFT':
+      return fadeInFromLeft(imgURL, slogan)
+    case 'FLIP_X_CENTER':
+      return flipXCenter(imgURL, slogan)
+    case 'INERTIAL_BOUNCE_CENTER':
+      return inertialBounceCenter(imgURL, slogan)
+    case 'POP_UP_SHAPES':
+      return popUpShapes(imgURL, slogan)
+    default:
+      return animations[Math.floor(Math.random() * animations.length)](imgURL, slogan)
+  }
 }
 
 // create new HTML file
-const createAnimationFile = (imgURL, slogan) => {
+const createAnimationFile = (imgURL, slogan, animation) => {
+  console.log(selectAnimation(imgURL, slogan, animation))
   const fileName = uniqid()
   console.log(`${__dirname}/renderedHTML/${fileName}.html`)
   if (!fs.existsSync(`${__dirname}/renderedHTML`)) {
     fs.mkdirSync(`${__dirname}/renderedHTML`)
   }
   fs.writeFileSync(
-    `${__dirname}/renderedHTML/${fileName}.html`, randomAnimation(imgURL, slogan)
+    `${__dirname}/renderedHTML/${fileName}.html`, selectAnimation(imgURL, slogan, animation)
   )
   return `${__dirname}/renderedHTML/${fileName}.html`
 }
@@ -56,9 +68,9 @@ const recording = HTMLPath =>
       .catch(e => reject(e))
   })
 
-export default async (imgURL, slogan) => {
+export default async (imgURL, slogan, animation) => {
   try {
-    let url = await recording(createAnimationFile(imgURL, slogan))
+    let url = await recording(createAnimationFile(imgURL, slogan, animation))
     let fileURL = await upload(url.fileName, url.filePath)
     return fileURL.secure_url
   } catch (e) {

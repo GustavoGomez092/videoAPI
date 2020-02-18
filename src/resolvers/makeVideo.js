@@ -12,7 +12,7 @@ const { screenRecorder } = utils
 export default {
 
   Mutation: {
-    createVideo: async (root, { imageURL, slogan }, { User, token: { payload, error } }, info) => {
+    createVideo: async (root, { imageURL, slogan, animation }, { User, token: { payload, error } }, info) => {
       try {
         // Check if the authorization header was received
         if (!payload) { throw new Error(error) }
@@ -35,7 +35,7 @@ export default {
         // Start the video capture
         let downloadUrl = new Promise(async (resolve, reject) => {
           try {
-            let fileURL = await screenRecorder(imageURL, slogan)
+            let fileURL = await screenRecorder(imageURL, slogan, animation)
             console.log(fileURL)
             // fire subscription
             pubsub.publish('RESPONSE_ADDED', { renderFinished: { url: fileURL, requestID } })

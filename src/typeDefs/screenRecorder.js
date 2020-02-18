@@ -10,6 +10,7 @@ extend type Mutation {
   createVideo (
     imageURL: String!
     slogan: String!
+    animation: AllowedAnimations
     ): Result!
   }
 type Subscription {
@@ -19,6 +20,13 @@ type Subscription {
 type Result {
     url: String,
     requestID: String!
+}
+
+enum AllowedAnimations {
+  FADE_IN_FROM_LEFT
+  FLIP_X_CENTER
+  INERTIAL_BOUNCE_CENTER
+  POP_UP_SHAPES
 }
 
 `
