@@ -17,7 +17,7 @@ type Subscription {
     renderFinished: Result!
 }
 
-input Result {
+type Result {
     url: String,
     requestID: String!
 }
