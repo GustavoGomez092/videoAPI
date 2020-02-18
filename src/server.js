@@ -69,6 +69,7 @@ const { jwtAuth } = Utils;
       typeDefs,
       resolvers,
       playground: PLAYGROUND,
+      introspection: PLAYGROUND,
       context: async ({ req, connection }) => {
         if (connection) {
           return connection.context
