@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "node ./dist/server.bundle.js",
+    "start": "pm2 start ecosystem.config.js",
     "dev": "webpack | nodemon dist/server.bundle.js",
     "build": "webpack"
   },
