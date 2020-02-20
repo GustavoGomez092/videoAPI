@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name: 'video-api',
-    script: 'dist/sever.bundle.js',
+    script: 'dist/server.bundle.js',
     instances: 1,
     autorestart: true,
     watch: false,
@@ -10,6 +10,7 @@ module.exports = {
     out_file: './logs/out.log',
     time: true,
     max_memory_restart: '1G',
+    exec_mode: 'fork',
     env: {
       NODE_ENV: 'development',
       DB_USER: 'loanMaster',
